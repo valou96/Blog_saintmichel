@@ -7,7 +7,7 @@
         <h2 class="text-center mt-5 mb-3">Show Project</h2>
         <div class="card">
             <div class="card-header">
-                <a class="btn btn-outline-info float-right" href="{{ path('app_project_index') }}">
+                <a class="btn btn-outline-info float-right" href="{{ path('app_project_blog') }}">
                     View All Projects
                 </a>
             </div>
@@ -17,14 +17,14 @@
                 <b class="text-muted">Description:</b>
                 <p>{{ project.description }}</p>
                 <b class="text-muted">Date Created:</b>
-                <p>{{ project.createdAt ? project.createdAt|date('Y-m-d H:i:s') : '' }}</p>
+                <p class="card-text">Create at: {{ project.createdAt | format_datetime( locale='fr')  }}</p>
                 <b class="text-muted">Date Updated:</b>
-                <p>{{ project.updatedAt ? project.updatedAt|date('Y-m-d H:i:s') : '' }}</p>
-
+                <p class="card-text">Update at: {{ project.updatedAt | format_datetime( locale='fr') }}</p>
+                <div>
+                    <img class="card-img-top" src="{{ vich_uploader_asset(project) }}">
+                </div>
             </div>
         </div>
-        <div>
-            <img class="card-img-top" src="{{ vich_uploader_asset(project) }}">
-        </div>
+
     </div>
 {% endblock %}
