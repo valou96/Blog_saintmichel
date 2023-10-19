@@ -46,6 +46,10 @@ class Project
     #[ORM\OneToMany(mappedBy: 'iD_Project', targetEntity: Commentaire::class)]
     private Collection $commentaires;
 
+    #[ORM\ManyToOne(inversedBy: 'idProject')]
+    #[ORM\JoinColumn(nullable: false)]
+    private ?User $user = null;
+
     public function __construct()
     {
         $this->commentaires = new ArrayCollection();
@@ -165,6 +169,18 @@ class Project
                 $commentaire->setIDProject(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getUser(): ?User
+    {
+        return $this->user;
+    }
+
+    public function setUser(?User $user): static
+    {
+        $this->user = $user;
 
         return $this;
     }

@@ -2,10 +2,15 @@
 
 namespace App\Controller;
 
+use App\Entity\Commentaire;
 use App\Entity\Project;
+use App\Entity\User;
 use App\Form\ProjectType;
+use App\Repository\CommentaireRepository;
 use App\Repository\ProjectRepository;
+use App\Repository\UserRepository;
 use Doctrine\ORM\EntityManagerInterface;
+use Doctrine\Persistence\ManagerRegistry;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -17,10 +22,13 @@ use Symfony\Component\Routing\Annotation\Route;
 class ProjectController extends AbstractController
 {
     #[Route('/', name: 'app_project_index', methods: ['GET'])]
-    public function index(ProjectRepository $projectRepository): Response
+    public function index(ManagerRegistry $doctrine, ProjectRepository $projectRepository): Response //
     {
+
+
         return $this->render('project/index.html.twig', [
             'projects' => $projectRepository->findAll(),
+
         ]);
     }
 
@@ -44,13 +52,7 @@ class ProjectController extends AbstractController
         ]);
     }
 
-    #[Route('/viewAll', name: 'app_project_blog', methods: ['GET'])]
-    public function BlogView(ProjectRepository $projectRepository): Response
-    {
-        return $this->render('project/index_blog.html.twig', [
-            'projects' => $projectRepository->findAll(),
-        ]);
-    }
+
 
 
     #[Route('/{id}', name: 'app_project_show', methods: ['GET'])]
